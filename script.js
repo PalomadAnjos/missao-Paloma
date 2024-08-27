@@ -5,15 +5,19 @@ const caixaResultado = document.querySelector(".caixa-resultadol");
 const caixaResultado = document.querySelector(".caixa-resultado");
 
 const perguntas = [
-    //primeiro.objetivo dessa perguntas 
+    //primeiro.objetivo dessa perguntas
 
-   {enunciado: "qual a melhor maneira de combater o desmatamento?",
+    {
+
+   enunciado: "qual a melhor maneira de combater o desmatamento?",
       alternativas:
       ["reflorestamento de àreas degradadas",
         "implementação de leis mais rigorosas"]
  },
 
  //segundo objeto da lista de perguntas
+
+ {
 
     enunciado: "perguntas2" ,
     alternativas:
@@ -23,8 +27,10 @@ const perguntas = [
 
 ];
 
-let atual = 0
-let perguntaAtual;
+let atual = 0;//variavel que inicia a pergunta 1
+let perguntaAtual;//variavel que recebe a pergunta atual e mostra o enunciado da pergunta
+let historiaFinal ="";//variavel que irá mostrar no final do resumo das afirmativas
+
 
 function mostraPergunta (){//criando função para a pergunta
    perguntaAtual = pergunta[atual];//guardando a lista de perguntas dentro da variavel perguntaAtual
@@ -41,10 +47,27 @@ function mostraAlternativas()//insere os botões alternativa
       botaoAlternativa.addEventListener('click , ()=>;//respostaSelecionada(alternativa));
          caixaAlternativas.appendChild(botaoAlternativa);//insere o botão na DIV do html
       }
-   }
+   
 
    mostraAlternativas();//executando a função mostrar alternativas.
+
+   function respostaSelecionada(opcaoSelecionada){//cria a função guardar a resposta selecionada das afirmações
+      const afirmacao = opcaoSelecionada.afirmacao;//cria a constante afirmação para guardar o atributo afirmação
+      historiaFinal = afirmacao;//variavel historiaFinal coleta de todas as afirmações
+      atual++;//atualiza a variavel "atual" percorrendo todos os itens da lista de perguntas
+      mostraPergunta();//executa a função mostraPergunta      
+   }
+
+   function mostraResultado(){
+      caixaPerguntas.textContent = "Síntese final...";
+      textoResultado.textContent = historiaFinal;
+      caixaAlternativas.textContent = "";
+   }
+
+
+
+
          
-      } while (condition);
-    }
+   
+    
 
