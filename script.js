@@ -45,8 +45,9 @@ function mostraAlternativas()//insere os botões alternativa
       const botaoAlternativa = document.createElement("button");//criando botão
       botaoAlternativa.textContent = alternativa.texto;//salvando a alternativa no botão
       botaoAlternativa.addEventListener('click , ()=>;//respostaSelecionada(alternativa));
-         caixaAlternativas.appendChild(botaoAlternativa);//insere o botão na DIV do html
-      }
+         caixaAlternativas.appendChild(botaoAlternativa);//insere o botão na DIV do html 
+    }
+
    
 
    mostraAlternativas();//executando a função mostrar alternativas.
@@ -62,7 +63,7 @@ function mostraAlternativas()//insere os botões alternativa
       caixaPerguntas.textContent = "Síntese final...";
       textoResultado.textContent = historiaFinal;
       caixaAlternativas.textContent = "";
-   }
+}
 
 
 
