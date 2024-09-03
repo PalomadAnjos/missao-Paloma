@@ -1,74 +1,88 @@
 const caixaPrincipal = document.querySelector(".caixa-principal");
-const caixaPerguntas = document.querySelector(".caixa-pergunta");
+const caixaPerguntas = document.querySelector(".caixa-perguntas");
 const caixaAlternativas = document.querySelector(".caixa-alternativas");
-const caixaResultado = document.querySelector(".caixa-resultadol");
 const caixaResultado = document.querySelector(".caixa-resultado");
+const textoResultado = document.querySelector(".texto-resultado");
 
 const perguntas = [
-    //primeiro.objetivo dessa perguntas
-
     {
+        enunciado: "TEXTO DA PERGUNTA 1",
+        alternativas: [
+            {
+                texto: "TEXTO DA ALTERNATIVA 1 DA PERGUNTA 1",
+                afirmacao: "AFIRMAÇÃO DA ALTERNATIVA 1 DA PERGUNTA 1"
+            },
+            {
+                texto: "TEXTO DA ALTERNATIVA 2 DA PERGUNTA 1",
+                afirmacao: "AFIRMAÇÃO DA ALTERNATIVA 2 DA PERGUNTA 1"
+            }
 
-   enunciado: "qual a melhor maneira de combater o desmatamento?",
-      alternativas:
-      ["reflorestamento de àreas degradadas",
-        "implementação de leis mais rigorosas"]
- },
+        ]
+    },
+    {
+        enunciado: "TEXTO DA PERGUNTA 2",
+        alternativas: [
+            {
+                texto: "TEXTO DA ALTERNATIVA 1 DA PERGUNTA 2",
+                afirmacao: "AFIRMAÇÃO DA ALTERNATIVA 1 DA PERGUNTA 2"
+            },
+            {
+                texto: "TEXTO DA ALTERNATIVA 2 DA PERGUNTA 2",
+                afirmacao: "AFIRMAÇÃO DA ALTERNATIVA 2 DA PERGUNTA 2"
+            }
 
- //segundo objeto da lista de perguntas
+        ]
+    },
+    {
+        enunciado: "TEXTO DA PERGUNTA 3",
+        alternativas: [
+            {
+                texto: "TEXTO DA ALTERNATIVA 1 DA PERGUNTA 3",
+                afirmacao: "AFIRMAÇÃO DA ALTERNATIVA 1 DA PERGUNTA 3"
+            },
+            {
+                texto: "TEXTO DA ALTERNATIVA 2 DA PERGUNTA 3",
+                afirmacao: "AFIRMAÇÃO DA ALTERNATIVA 2 DA PERGUNTA 3"
+            }
 
- {
-
-    enunciado: "perguntas2" ,
-    alternativas:
-    ["implementar programas de educação e formação social acessivel a todos",
-      "politicas de redisribuição de renda e oportunidades"]
-},
-
+        ]
+    }
 ];
 
-let atual = 0;//variavel que inicia a pergunta 1
-let perguntaAtual;//variavel que recebe a pergunta atual e mostra o enunciado da pergunta
-let historiaFinal ="";//variavel que irá mostrar no final do resumo das afirmativas
+let atual = 0;
+let perguntaAtual;
+let historiaFinal = "";
 
-
-function mostraPergunta (){//criando função para a pergunta
-   perguntaAtual = pergunta[atual];//guardando a lista de perguntas dentro da variavel perguntaAtual
-   caixaPerguntas.textContent = perguntaAtual.enunciado;//manipulando o conteudo do texto e do enunciado
-   caixaAlternativas.textContent="";
-   mostraAlternativas();
-}
-mostraAlternativas();//executando a função mostrar perguntas
-
-function mostraAlternativas()//insere os botões alternativa
-    for(const alternativa of perguntaAtual.alternativa) {
-      const botaoAlternativa = document.createElement("button");//criando botão
-      botaoAlternativa.textContent = alternativa.texto;//salvando a alternativa no botão
-      botaoAlternativa.addEventListener('click , ()=>;//respostaSelecionada(alternativa));
-         caixaAlternativas.appendChild(botaoAlternativa);//insere o botão na DIV do html 
+function mostraPergunta() {
+    if (atual >= perguntas.length) {
+        mostraResultado();
+        return;
     }
-
-   
-
-   mostraAlternativas();//executando a função mostrar alternativas.
-
-   function respostaSelecionada(opcaoSelecionada){//cria a função guardar a resposta selecionada das afirmações
-      const afirmacao = opcaoSelecionada.afirmacao;//cria a constante afirmação para guardar o atributo afirmação
-      historiaFinal = afirmacao;//variavel historiaFinal coleta de todas as afirmações
-      atual++;//atualiza a variavel "atual" percorrendo todos os itens da lista de perguntas
-      mostraPergunta();//executa a função mostraPergunta      
-   }
-
-   function mostraResultado(){
-      caixaPerguntas.textContent = "Síntese final...";
-      textoResultado.textContent = historiaFinal;
-      caixaAlternativas.textContent = "";
+    perguntaAtual = perguntas[atual];
+    caixaPerguntas.textContent = perguntaAtual.enunciado;
+    caixaAlternativas.textContent = "";
+    textoResultado.textContent = "";
+    mostraAlternativas();
 }
 
+function mostraAlternativas() {
+    for (const alternativa of perguntaAtual.alternativas) {
+        const botaoAlternativa = document.createElement("button");
+        botaoAlternativa.textContent = alternativa.texto;
+        botaoAlternativa.addEventListener("click", () => respostaSelecionada(alternativa));
+        caixaAlternativas.appendChild(botaoAlternativa);
+    }
+}
+function respostaSelecionada(opcaoSelecionada) {
+    const afirmacao = opcaoSelecionada.afirmacao;
+    historiaFinal += afirmacao + " ";
+    atual++
+    mostraPergunta();
+}
 
-
-
-         
-   
-    
-
+function mostraResultado() {
+    caixaPerguntas.textContent = "Resumindo...";
+    textoResultado.textContent = historiaFinal;
+    caixaAlternativas.textContent = "";
+}
+mostraPergunta();
